@@ -1,0 +1,77 @@
+---
+const { currentPath = "/" } = Astro.props;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/utm-builder", label: "UTM Builder" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+];
+---
+
+<header class="topbar">
+  <div class="brand">
+    <a href="/">PPC Toolbench</a>
+  </div>
+
+  <nav class="nav">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class={currentPath === link.href ? "active" : ""}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .brand a {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #111827;
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .nav a {
+    color: #374151;
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav a:hover {
+    color: #6d28d9;
+    text-decoration: none;
+  }
+
+  .nav a.active {
+    color: #6d28d9;
+    border-bottom-color: #6d28d9;
+  }
+
+  @media (max-width: 900px) {
+    .topbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

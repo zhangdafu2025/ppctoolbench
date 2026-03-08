@@ -1,0 +1,127 @@
+---
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const {
+  title,
+  description = "Practical tools for Google Ads, campaign tracking, and ad copy validation. No sign-up required.",
+  currentPath = "/",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="container">
+      <SiteHeader currentPath={currentPath} />
+      <main>
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #f7f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --primary: #6d28d9;
+    --primary-hover: #5b21b6;
+    --success-bg: #ecfdf5;
+    --success-text: #065f46;
+    --warn-bg: #fffbeb;
+    --warn-text: #92400e;
+    --danger-bg: #fef2f2;
+    --danger-text: #991b1b;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin: 0 0 14px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin: 0 0 12px;
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    color: #374151;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+  }
+
+  .section {
+    margin-top: 36px;
+  }
+
+  .info-block {
+    margin-top: 28px;
+  }
+
+  ul {
+    padding-left: 22px;
+  }
+
+  @media (max-width: 900px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+</style>

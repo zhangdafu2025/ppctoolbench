@@ -1,0 +1,185 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="PPC Toolbench – Free Google Ads & Marketing Tools"
+  description="Practical tools for Google Ads, campaign tracking, and ad copy validation. No sign-up required."
+  currentPath="/"
+>
+  <section class="hero">
+    <h1>Free Tools for Google Ads & Marketing Tracking</h1>
+    <p class="lead">
+      Practical, no-nonsense tools for Google Ads, campaign tracking and ad copy validation.
+      Built for marketers who want clean workflows, consistent naming, and faster execution.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/utm-builder">Open UTM Builder</a>
+      <a class="btn btn-secondary" href="#tools">View all tools</a>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
+    <h2>Tools</h2>
+
+    <div class="tool-grid">
+      <article class="card">
+        <div class="status">Live now</div>
+        <h3>Google Ads & Affiliate UTM Builder</h3>
+        <p>
+          Build clean, GA4-friendly campaign URLs for Google Ads, affiliates,
+          email, and social traffic.
+        </p>
+        <ul class="small-list">
+          <li>Source and medium defaults</li>
+          <li>Clean parameter output</li>
+          <li>Copy-ready full URL</li>
+        </ul>
+        <p><a href="/utm-builder">Open tool →</a></p>
+      </article>
+
+      <article class="card">
+        <div class="status">Coming next</div>
+        <h3>Google Ads Character Counter</h3>
+        <p>
+          Check headline and description length for responsive search ads
+          with simple visual limits.
+        </p>
+        <ul class="small-list">
+          <li>30-character headline checks</li>
+          <li>90-character description checks</li>
+          <li>Fast drafting workflow</li>
+        </ul>
+        <p>Launching soon.</p>
+      </article>
+
+      <article class="card">
+        <div class="status">Planned</div>
+        <h3>Google Ads Copy Draft Tool</h3>
+        <p>
+          Generate draft ad copy ideas for inspiration, then validate them
+          against standard Google Ads length limits.
+        </p>
+        <ul class="small-list">
+          <li>Draft headlines and descriptions</li>
+          <li>Region-aware output styles</li>
+          <li>Human review recommended</li>
+        </ul>
+        <p>Planned for the next release.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="info-grid">
+      <div class="card">
+        <h2>Why PPC Toolbench exists</h2>
+        <p>
+          Many campaign tools are either too bloated, too generic, or built for large teams.
+          PPC Toolbench focuses on small, practical utilities that help marketers execute faster
+          without unnecessary complexity.
+        </p>
+        <p>
+          Our goal is simple: build tools that are easy to use, quick to access, and genuinely useful
+          in everyday campaign work.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>What you can expect</h2>
+        <ul class="small-list">
+          <li>No sign-up required for core tools</li>
+          <li>Simple interfaces with practical defaults</li>
+          <li>Tools designed for real campaign workflows</li>
+          <li>Clear documentation and transparent policies</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .hero {
+    padding: 22px 0 10px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background: #ede9fe;
+    color: #4c1d95;
+  }
+
+  .btn-secondary:hover {
+    text-decoration: none;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+  }
+
+  .card p {
+    color: #4b5563;
+    margin-bottom: 14px;
+  }
+
+  .status {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4c1d95;
+    background: #f3e8ff;
+    padding: 6px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  .small-list {
+    padding-left: 18px;
+    color: #374151;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 900px) {
+    .tool-grid,
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
