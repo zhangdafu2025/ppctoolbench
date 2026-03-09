@@ -7,75 +7,197 @@ import MainLayout from "../layouts/MainLayout.astro";
   description="Free Google Ads character counter. Check headline and description length for responsive search ads instantly."
   currentPath="/google-ads-character-counter"
 >
+  <header class="page-header">
+    <h1>Google Ads Character Counter</h1>
+    <p class="lead">
+      Check Google Ads headline and description character limits in real time.
+    </p>
+  </header>
 
-<h1>Google Ads Character Counter</h1>
+  <section class="card tool-card">
+    <div class="field">
+      <label for="headline">Headline</label>
+      <textarea id="headline" rows="2" placeholder="Enter your Google Ads headline here"></textarea>
+      <p class="counter-line">
+        Characters: <span id="headlineCount">0</span> / 30
+        <span id="headlineStatus" class="status ok">OK</span>
+      </p>
+    </div>
 
-<p>
-Check Google Ads headline and description character limits in real time.
-</p>
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" rows="3" placeholder="Enter your Google Ads description here"></textarea>
+      <p class="counter-line">
+        Characters: <span id="descriptionCount">0</span> / 90
+        <span id="descriptionStatus" class="status ok">OK</span>
+      </p>
+    </div>
+  </section>
 
-<div style="margin-top:30px">
+  <section class="card content-card">
+    <h2>Google Ads Character Limits</h2>
+    <p>
+      Google Ads responsive search ads have specific character limits for headlines
+      and descriptions. Use this free Google Ads character counter to make sure your
+      ad copy stays within the allowed limits.
+    </p>
 
-<h3>Headline</h3>
-<textarea id="headline" rows="2" style="width:100%"></textarea>
-<p>Characters: <span id="headlineCount">0</span> / 30</p>
+    <ul>
+      <li><strong>Headline:</strong> 30 characters maximum</li>
+      <li><strong>Description:</strong> 90 characters maximum</li>
+    </ul>
 
-<h3>Description</h3>
-<textarea id="description" rows="3" style="width:100%"></textarea>
-<p>Characters: <span id="descriptionCount">0</span> / 90</p>
+    <h2>Why Character Limits Matter</h2>
+    <p>
+      If your Google Ads copy exceeds the allowed character limits, your ads may be
+      truncated or rejected. Keeping your headlines and descriptions within the
+      recommended limits ensures your ads display properly across devices.
+    </p>
 
-</div>
+    <h2>How to Use This Google Ads Character Counter</h2>
+    <ol>
+      <li>Type or paste your ad headline into the headline field.</li>
+      <li>The tool will automatically count characters.</li>
+      <li>Make sure the headline stays within 30 characters.</li>
+      <li>Repeat the process for the description field (90 characters).</li>
+    </ol>
 
-<script>
-const headline = document.getElementById("headline");
-const description = document.getElementById("description");
+    <h2>Related Tools</h2>
+    <p>
+      You may also want to try our <a href="/utm-builder">UTM Builder</a> to generate
+      campaign tracking links for Google Ads.
+    </p>
+  </section>
 
-const headlineCount = document.getElementById("headlineCount");
-const descriptionCount = document.getElementById("descriptionCount");
+  <script>
+    const headline = document.getElementById("headline");
+    const description = document.getElementById("description");
 
-headline.addEventListener("input", () => {
-headlineCount.textContent = headline.value.length;
-});
+    const headlineCount = document.getElementById("headlineCount");
+    const descriptionCount = document.getElementById("descriptionCount");
 
-description.addEventListener("input", () => {
-descriptionCount.textContent = description.value.length;
-});
-</script>
+    const headlineStatus = document.getElementById("headlineStatus");
+    const descriptionStatus = document.getElementById("descriptionStatus");
 
+    function updateStatus(count, limit, statusEl) {
+      if (count <= limit) {
+        statusEl.textContent = "OK";
+        statusEl.className = "status ok";
+      } else if (count <= limit + 5) {
+        statusEl.textContent = "Too Long";
+        statusEl.className = "status warn";
+      } else {
+        statusEl.textContent = "Exceeds Limit";
+        statusEl.className = "status danger";
+      }
+    }
+
+    headline.addEventListener("input", () => {
+      const count = headline.value.length;
+      headlineCount.textContent = count;
+      updateStatus(count, 30, headlineStatus);
+    });
+
+    description.addEventListener("input", () => {
+      const count = description.value.length;
+      descriptionCount.textContent = count;
+      updateStatus(count, 90, descriptionStatus);
+    });
+  </script>
+
+  <style>
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .tool-card,
+    .content-card {
+      margin-top: 24px;
+    }
+
+    .field {
+      margin-bottom: 28px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      background: #fff;
+    }
+
+    textarea:focus {
+      outline: 2px solid rgba(109, 40, 217, 0.15);
+      border-color: var(--primary);
+    }
+
+    .counter-line {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .status.ok {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    .status.warn {
+      background: #fffbeb;
+      color: #92400e;
+    }
+
+    .status.danger {
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .content-card h2 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .content-card h2:first-child {
+      margin-top: 0;
+    }
+
+    .content-card p,
+    .content-card li {
+      color: #374151;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .content-card ol,
+    .content-card ul {
+      margin-top: 12px;
+    }
+  </style>
 </MainLayout>
-<hr style="margin:60px 0">
-
-<h2>Google Ads Character Limits</h2>
-
-<p>
-Google Ads responsive search ads have specific character limits for headlines and descriptions.
-Use this free Google Ads character counter to make sure your ad copy stays within the allowed limits.
-</p>
-
-<ul>
-<li><strong>Headline:</strong> 30 characters maximum</li>
-<li><strong>Description:</strong> 90 characters maximum</li>
-</ul>
-
-<h2>Why Character Limits Matter</h2>
-
-<p>
-If your Google Ads copy exceeds the allowed character limits, your ads may be truncated or rejected.
-Keeping your headlines and descriptions within the recommended limits ensures your ads display properly
-across all devices.
-</p>
-
-<h2>How to Use This Google Ads Character Counter</h2>
-
-<ol>
-<li>Type or paste your ad headline into the headline field.</li>
-<li>The tool will automatically count characters.</li>
-<li>Make sure the headline stays within 30 characters.</li>
-<li>Repeat the process for the description field (90 characters).</li>
-</ol>
-
-<h2>Related Tools</h2>
-
-<p>
-You may also want to try our <a href="/utm-builder">UTM Builder</a> to generate campaign tracking links for Google Ads.
-</p>
