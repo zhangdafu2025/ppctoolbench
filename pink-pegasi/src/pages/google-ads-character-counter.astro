@@ -1,0 +1,45 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="Google Ads Character Counter – PPC Toolbench"
+  description="Free Google Ads character counter. Check headline and description length for responsive search ads instantly."
+  currentPath="/google-ads-character-counter"
+>
+
+<h1>Google Ads Character Counter</h1>
+
+<p>
+Check Google Ads headline and description character limits in real time.
+</p>
+
+<div style="margin-top:30px">
+
+<h3>Headline</h3>
+<textarea id="headline" rows="2" style="width:100%"></textarea>
+<p>Characters: <span id="headlineCount">0</span> / 30</p>
+
+<h3>Description</h3>
+<textarea id="description" rows="3" style="width:100%"></textarea>
+<p>Characters: <span id="descriptionCount">0</span> / 90</p>
+
+</div>
+
+<script>
+const headline = document.getElementById("headline");
+const description = document.getElementById("description");
+
+const headlineCount = document.getElementById("headlineCount");
+const descriptionCount = document.getElementById("descriptionCount");
+
+headline.addEventListener("input", () => {
+headlineCount.textContent = headline.value.length;
+});
+
+description.addEventListener("input", () => {
+descriptionCount.textContent = description.value.length;
+});
+</script>
+
+</MainLayout>
