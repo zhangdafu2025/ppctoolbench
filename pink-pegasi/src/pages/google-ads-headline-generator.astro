@@ -1,0 +1,282 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="Google Ads Headline Generator – PPC Toolbench"
+  description="Free Google Ads headline generator for responsive search ads. Generate headline ideas and check character limits instantly."
+  currentPath="/google-ads-headline-generator"
+>
+  <header class="page-header">
+    <h1>Google Ads Headline Generator</h1>
+    <p class="lead">
+      Generate Google Ads headline ideas for responsive search ads and check whether they fit within the 30-character limit.
+    </p>
+  </header>
+
+  <section class="card tool-card">
+    <div class="field">
+      <label for="keyword">Main Keyword</label>
+      <input id="keyword" type="text" placeholder="e.g. Microsoft 365 subscription" />
+    </div>
+
+    <div class="field">
+      <label for="offer">Offer or Benefit</label>
+      <input id="offer" type="text" placeholder="e.g. Save 30% today" />
+    </div>
+
+    <div class="field">
+      <label for="brand">Brand or Site Name (optional)</label>
+      <input id="brand" type="text" placeholder="e.g. PPC Toolbench" />
+    </div>
+
+    <div class="button-row">
+      <button class="btn-primary" id="generateBtn" type="button">Generate Headlines</button>
+      <button class="btn-secondary" id="resetBtn" type="button">Reset</button>
+    </div>
+  </section>
+
+  <section class="card results-card">
+    <h2>Generated Headlines</h2>
+    <div id="results" class="results-list">
+      <p class="empty-state">Your generated headline ideas will appear here.</p>
+    </div>
+  </section>
+
+  <section class="card content-card">
+    <h2>What This Tool Does</h2>
+    <p>
+      This Google Ads headline generator helps you quickly create headline ideas for responsive
+      search ads. It combines your keyword, offer, and brand terms into multiple headline variations
+      that can be used as ad copy inspiration.
+    </p>
+
+    <h2>Why It Matters</h2>
+    <p>
+      Google Ads headlines have limited space, and strong headline variations can improve click-through
+      rate and overall ad relevance. This tool helps you brainstorm faster while keeping the standard
+      30-character limit in mind.
+    </p>
+
+    <h2>How to Use It</h2>
+    <ol>
+      <li>Enter your main keyword.</li>
+      <li>Add your offer, benefit, or value proposition.</li>
+      <li>Optionally add your brand or site name.</li>
+      <li>Click Generate Headlines to see multiple variations.</li>
+    </ol>
+
+    <h2>Related Tools</h2>
+    <p>
+      After generating headline ideas, use our
+      <a href="/google-ads-character-counter">Google Ads Character Counter</a>
+      to validate final copy, or try the
+      <a href="/utm-builder">UTM Builder</a>
+      to create campaign tracking links.
+    </p>
+  </section>
+
+  <script>
+    const keywordEl = document.getElementById("keyword");
+    const offerEl = document.getElementById("offer");
+    const brandEl = document.getElementById("brand");
+    const generateBtn = document.getElementById("generateBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const resultsEl = document.getElementById("results");
+
+    function trimText(text) {
+      return text.trim();
+    }
+
+    function cutToLimit(text, limit = 30) {
+      return text.length > limit ? text.slice(0, limit) : text;
+    }
+
+    function generateHeadlines() {
+      const keyword = trimText(keywordEl.value);
+      const offer = trimText(offerEl.value);
+      const brand = trimText(brandEl.value);
+
+      if (!keyword || !offer) {
+        resultsEl.innerHTML = '<p class="empty-state">Please enter both a main keyword and an offer or benefit.</p>';
+        return;
+      }
+
+      const rawHeadlines = [
+        `${keyword} - ${offer}`,
+        `${offer} ${keyword}`,
+        `Buy ${keyword} Today`,
+        `${keyword} Deals Now`,
+        `${keyword} Special Offer`,
+        `${offer} - Shop Now`,
+        `${keyword} Online`,
+        `${keyword} For Less`,
+        `${offer} Today`,
+        brand ? `${keyword} | ${brand}` : "",
+        brand ? `${offer} | ${brand}` : "",
+        brand ? `${brand} ${keyword}` : ""
+      ].filter(Boolean);
+
+      const uniqueHeadlines = [...new Set(rawHeadlines)].map((item) => cutToLimit(item, 30));
+
+      resultsEl.innerHTML = uniqueHeadlines.map((headline) => {
+        const count = headline.length;
+        const statusClass = count <= 30 ? "ok" : "danger";
+        const statusText = count <= 30 ? "Fits" : "Too Long";
+
+        return `
+          <div class="result-item">
+            <div class="result-top">
+              <strong>${headline}</strong>
+              <span class="status ${statusClass}">${statusText}</span>
+            </div>
+            <div class="result-meta">${count} / 30 characters</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function resetForm() {
+      keywordEl.value = "";
+      offerEl.value = "";
+      brandEl.value = "";
+      resultsEl.innerHTML = '<p class="empty-state">Your generated headline ideas will appear here.</p>';
+    }
+
+    generateBtn.addEventListener("click", generateHeadlines);
+    resetBtn.addEventListener("click", resetForm);
+  </script>
+
+  <style>
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .tool-card,
+    .results-card,
+    .content-card {
+      margin-top: 24px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    input:focus {
+      outline: 2px solid rgba(109, 40, 217, 0.15);
+      border-color: var(--primary);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #ede9fe;
+      color: #4c1d95;
+    }
+
+    .results-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .result-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+
+    .result-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .result-meta {
+      margin-top: 8px;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .empty-state {
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .status.ok {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    .status.danger {
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .content-card h2 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .content-card h2:first-child {
+      margin-top: 0;
+    }
+
+    .content-card p,
+    .content-card li {
+      color: #374151;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+  </style>
+</MainLayout>
