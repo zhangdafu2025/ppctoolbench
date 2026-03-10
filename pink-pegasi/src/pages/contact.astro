@@ -4,42 +4,98 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 <MainLayout
   title="Contact | PPC Toolbench"
-  description="Contact PPC Toolbench for general questions, feedback, and site-related inquiries."
+  description="Contact PPC Toolbench for questions, feedback, and partnership inquiries related to our PPC and Google Ads tools."
   currentPath="/contact"
 >
-  <main class="card">
+  <main class="card contact-card">
     <h1>Contact</h1>
+
     <p class="lead">
-      For general questions, feedback, or site-related inquiries, please contact us by email.
+      If you have questions, feedback, or partnership inquiries, feel free to contact us.
     </p>
 
     <p>
-      We welcome feedback about tool usability, bug reports, and general suggestions
-      related to PPC Toolbench.
+      PPC Toolbench is an independent resource for digital marketers. We build practical,
+      free tools for Google Ads workflows, campaign tracking, ad copy validation, and PPC planning.
     </p>
 
-    <div class="email-box">
-      <strong>Contact email:</strong>
-      <span>Email address will be added soon.</span>
+    <div class="contact-box">
+      <p class="contact-label">Email</p>
+      <p class="contact-email">
+        <a href="mailto:ppctoolbench@gmail.com">ppctoolbench@gmail.com</a>
+      </p>
     </div>
 
-    <p class="contact-note">
-      We aim to review messages as soon as reasonably possible.
+    <div class="contact-info">
+      <h2>What you can contact us about</h2>
+      <ul>
+        <li>Tool feedback and usability suggestions</li>
+        <li>Bug reports or technical issues</li>
+        <li>General business or partnership inquiries</li>
+        <li>Questions related to PPC Toolbench content and tools</li>
+      </ul>
+    </div>
+
+    <p class="response-note">
+      We typically respond within 24–48 hours.
     </p>
   </main>
+
+  <style>
+    .contact-card {
+      max-width: 860px;
+    }
+
+    .contact-box {
+      margin: 28px 0 22px;
+      padding: 18px 20px;
+      border: 1px solid #ddd6fe;
+      background: #f5f3ff;
+      border-radius: 14px;
+    }
+
+    .contact-label {
+      margin: 0 0 6px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #6d28d9;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .contact-email {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 600;
+    }
+
+    .contact-email a {
+      color: #111827;
+      text-decoration: none;
+    }
+
+    .contact-email a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .contact-info {
+      margin-top: 26px;
+    }
+
+    .contact-info h2 {
+      margin-bottom: 10px;
+    }
+
+    .contact-info ul {
+      color: #374151;
+      line-height: 1.75;
+    }
+
+    .response-note {
+      margin-top: 24px;
+      color: #6b7280;
+      font-size: 0.98rem;
+    }
+  </style>
 </MainLayout>
-
-<style>
-  .email-box {
-    margin-top: 20px;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd6fe;
-    background: #f5f3ff;
-  }
-
-  .contact-note {
-    margin-top: 20px;
-    color: #4b5563;
-  }
-</style>
