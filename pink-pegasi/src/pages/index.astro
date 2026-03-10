@@ -118,6 +118,21 @@ import MainLayout from "../layouts/MainLayout.astro";
   </ul>
   <p><a href="/google-ads-preview-tool">Open tool →</a></p>
 </article>
+
+<article class="card tool-card">
+  <div class="status">Live now</div>
+  <h3>Google Ads Description Generator</h3>
+  <p>
+    Generate Google Ads description ideas using your keyword, offer,
+    benefit, and call to action.
+  </p>
+  <ul class="small-list">
+    <li>Free RSA description ideas</li>
+    <li>90-character guidance</li>
+    <li>Useful for PPC copy drafting</li>
+  </ul>
+  <p><a href="/google-ads-description-generator">Open tool →</a></p>
+</article>
     </div>
   </section>
 
@@ -301,7 +316,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 
     .tool-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 18px;
     }
 
@@ -336,7 +351,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 
     .value-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 18px;
     }
 
