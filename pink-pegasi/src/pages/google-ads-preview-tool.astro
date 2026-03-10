@@ -1,0 +1,407 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="Google Ads Preview Tool (Free RSA Ad Preview)"
+  description="Preview Google Ads responsive search ads with headlines, descriptions, and display paths. Free Google Ads preview tool for PPC marketers."
+  currentPath="/google-ads-preview-tool"
+>
+  <header class="page-header">
+    <h1>Google Ads Preview Tool</h1>
+    <p class="lead">
+      Preview responsive search ads with your headlines, descriptions, and display URL before launching your campaign.
+    </p>
+  </header>
+
+  <section class="card tool-card">
+    <div class="preview-grid">
+      <div class="inputs-panel">
+        <h2>Ad Inputs</h2>
+
+        <div class="field">
+          <label for="finalUrl">Final URL</label>
+          <input id="finalUrl" type="text" placeholder="https://www.example.com" />
+        </div>
+
+        <div class="field">
+          <label for="path1">Path 1</label>
+          <input id="path1" type="text" placeholder="pricing" />
+        </div>
+
+        <div class="field">
+          <label for="path2">Path 2</label>
+          <input id="path2" type="text" placeholder="plans" />
+        </div>
+
+        <div class="field">
+          <label for="headline1">Headline 1</label>
+          <input id="headline1" type="text" placeholder="Google Ads Management" />
+          <p class="input-meta"><span id="headline1Count">0</span> / 30</p>
+        </div>
+
+        <div class="field">
+          <label for="headline2">Headline 2</label>
+          <input id="headline2" type="text" placeholder="Free PPC Audit" />
+          <p class="input-meta"><span id="headline2Count">0</span> / 30</p>
+        </div>
+
+        <div class="field">
+          <label for="headline3">Headline 3</label>
+          <input id="headline3" type="text" placeholder="Trusted by Marketers" />
+          <p class="input-meta"><span id="headline3Count">0</span> / 30</p>
+        </div>
+
+        <div class="field">
+          <label for="description1">Description 1</label>
+          <textarea id="description1" rows="3" placeholder="Improve campaign performance with practical PPC workflows and better tracking."></textarea>
+          <p class="input-meta"><span id="description1Count">0</span> / 90</p>
+        </div>
+
+        <div class="field">
+          <label for="description2">Description 2</label>
+          <textarea id="description2" rows="3" placeholder="Preview your ad copy, validate key limits, and launch with more confidence."></textarea>
+          <p class="input-meta"><span id="description2Count">0</span> / 90</p>
+        </div>
+
+        <div class="button-row">
+          <button class="btn-primary" id="loadExampleBtn" type="button">Load Example</button>
+          <button class="btn-secondary" id="resetBtn" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div class="preview-panel">
+        <h2>Live Preview</h2>
+
+        <div class="google-preview">
+          <div class="preview-url" id="previewUrl">www.example.com › pricing › plans</div>
+          <div class="preview-headline" id="previewHeadline">
+            Google Ads Management | Free PPC Audit | Trusted by Marketers
+          </div>
+          <div class="preview-description" id="previewDescription">
+            Improve campaign performance with practical PPC workflows and better tracking.
+            Preview your ad copy, validate key limits, and launch with more confidence.
+          </div>
+        </div>
+
+        <div class="preview-note">
+          This preview is an approximation for planning and review purposes. Actual Google Ads rendering may vary by device, auction context, and available space.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card content-card">
+    <h2>What This Tool Does</h2>
+    <p>
+      This Google Ads Preview Tool helps you visualize how your responsive search ad may appear
+      in Google search results. You can enter headlines, descriptions, and display paths to create
+      a cleaner pre-launch review workflow.
+    </p>
+
+    <h2>Why It Helps</h2>
+    <p>
+      Before launching a campaign, it helps to review how your ad copy looks as a whole — not just
+      line by line. Previewing your ad can make it easier to spot awkward combinations, weak value
+      propositions, and headline clutter.
+    </p>
+
+    <h2>How to Use It</h2>
+    <ol>
+      <li>Enter your final URL and optional display paths.</li>
+      <li>Add up to three headline lines for preview.</li>
+      <li>Add one or two descriptions.</li>
+      <li>Review the live preview card on the right side.</li>
+    </ol>
+
+    <h2>Related Tools</h2>
+    <p>
+      Use our <a href="/google-ads-character-counter">Google Ads Character Counter</a>
+      to validate copy length, try the
+      <a href="/google-ads-headline-generator">Google Ads Headline Generator</a>
+      for fresh ideas, or create campaign URLs with the
+      <a href="/utm-builder">UTM Builder</a>.
+    </p>
+  </section>
+
+  <script>
+    const finalUrl = document.getElementById("finalUrl");
+    const path1 = document.getElementById("path1");
+    const path2 = document.getElementById("path2");
+
+    const headline1 = document.getElementById("headline1");
+    const headline2 = document.getElementById("headline2");
+    const headline3 = document.getElementById("headline3");
+
+    const description1 = document.getElementById("description1");
+    const description2 = document.getElementById("description2");
+
+    const previewUrl = document.getElementById("previewUrl");
+    const previewHeadline = document.getElementById("previewHeadline");
+    const previewDescription = document.getElementById("previewDescription");
+
+    const headline1Count = document.getElementById("headline1Count");
+    const headline2Count = document.getElementById("headline2Count");
+    const headline3Count = document.getElementById("headline3Count");
+    const description1Count = document.getElementById("description1Count");
+    const description2Count = document.getElementById("description2Count");
+
+    const loadExampleBtn = document.getElementById("loadExampleBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function safeTrim(value) {
+      return value.trim();
+    }
+
+    function shorten(text, limit) {
+      return text.length > limit ? text.slice(0, limit) : text;
+    }
+
+    function getDisplayDomain(url) {
+      const clean = safeTrim(url);
+      if (!clean) return "www.example.com";
+
+      try {
+        const parsed = new URL(clean);
+        return parsed.hostname.replace(/^www\./, "www.");
+      } catch {
+        return clean.replace(/^https?:\/\//, "").replace(/\/.*$/, "") || "www.example.com";
+      }
+    }
+
+    function updateCounts() {
+      headline1Count.textContent = headline1.value.length;
+      headline2Count.textContent = headline2.value.length;
+      headline3Count.textContent = headline3.value.length;
+      description1Count.textContent = description1.value.length;
+      description2Count.textContent = description2.value.length;
+    }
+
+    function updatePreview() {
+      updateCounts();
+
+      const domain = getDisplayDomain(finalUrl.value);
+      const p1 = safeTrim(path1.value);
+      const p2 = safeTrim(path2.value);
+
+      let displayUrl = domain;
+      if (p1) displayUrl += ` › ${shorten(p1, 15)}`;
+      if (p2) displayUrl += ` › ${shorten(p2, 15)}`;
+
+      previewUrl.textContent = displayUrl;
+
+      const h1 = safeTrim(headline1.value) || "Google Ads Management";
+      const h2 = safeTrim(headline2.value) || "Free PPC Audit";
+      const h3 = safeTrim(headline3.value) || "Trusted by Marketers";
+
+      previewHeadline.textContent = [
+        shorten(h1, 30),
+        shorten(h2, 30),
+        shorten(h3, 30)
+      ].filter(Boolean).join(" | ");
+
+      const d1 = safeTrim(description1.value) || "Improve campaign performance with practical PPC workflows and better tracking.";
+      const d2 = safeTrim(description2.value) || "Preview your ad copy, validate key limits, and launch with more confidence.";
+
+      previewDescription.textContent = `${shorten(d1, 90)} ${shorten(d2, 90)}`.trim();
+    }
+
+    function loadExample() {
+      finalUrl.value = "https://www.ppctoolbench.com";
+      path1.value = "google-ads";
+      path2.value = "tools";
+
+      headline1.value = "Free PPC Tools";
+      headline2.value = "Preview Ads Faster";
+      headline3.value = "Built for Marketers";
+
+      description1.value = "Review your responsive search ads before launch with a clean visual preview.";
+      description2.value = "Check how headlines and descriptions work together for stronger ad messaging.";
+
+      updatePreview();
+    }
+
+    function resetForm() {
+      finalUrl.value = "";
+      path1.value = "";
+      path2.value = "";
+
+      headline1.value = "";
+      headline2.value = "";
+      headline3.value = "";
+
+      description1.value = "";
+      description2.value = "";
+
+      updatePreview();
+    }
+
+    [
+      finalUrl,
+      path1,
+      path2,
+      headline1,
+      headline2,
+      headline3,
+      description1,
+      description2
+    ].forEach((el) => {
+      el.addEventListener("input", updatePreview);
+    });
+
+    loadExampleBtn.addEventListener("click", loadExample);
+    resetBtn.addEventListener("click", resetForm);
+
+    updatePreview();
+  </script>
+
+  <style>
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .tool-card,
+    .content-card {
+      margin-top: 24px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 1.02rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid rgba(109, 40, 217, 0.15);
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .input-meta {
+      margin-top: 8px;
+      color: #6b7280;
+      font-size: 0.92rem;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #ede9fe;
+      color: #4c1d95;
+    }
+
+    .google-preview {
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .preview-url {
+      color: #188038;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+
+    .preview-headline {
+      color: #1a0dab;
+      font-size: 1.35rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .preview-description {
+      color: #4b5563;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      word-break: break-word;
+    }
+
+    .preview-note {
+      margin-top: 14px;
+      color: #6b7280;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .content-card h2 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .content-card h2:first-child {
+      margin-top: 0;
+    }
+
+    .content-card p,
+    .content-card li {
+      color: #374151;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 980px) {
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</MainLayout>
