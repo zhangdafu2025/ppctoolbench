@@ -1,0 +1,296 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="Google Ads Description Generator (Free RSA Description Ideas)"
+  description="Generate Google Ads descriptions for responsive search ads. Free PPC description generator with 90-character guidance."
+  currentPath="/google-ads-description-generator"
+>
+  <header class="page-header">
+    <h1>Google Ads Description Generator</h1>
+    <p class="lead">
+      Generate Google Ads description ideas for responsive search ads using your keyword,
+      offer, and key benefits.
+    </p>
+  </header>
+
+  <section class="card tool-card">
+    <div class="field">
+      <label for="keyword">Main Keyword</label>
+      <input id="keyword" type="text" placeholder="e.g. Microsoft 365 subscription" />
+    </div>
+
+    <div class="field">
+      <label for="offer">Offer or Promotion</label>
+      <input id="offer" type="text" placeholder="e.g. Save 30% today" />
+    </div>
+
+    <div class="field">
+      <label for="benefit">Main Benefit</label>
+      <input id="benefit" type="text" placeholder="e.g. Trusted software for business and personal use" />
+    </div>
+
+    <div class="field">
+      <label for="cta">Call to Action (optional)</label>
+      <input id="cta" type="text" placeholder="e.g. Shop now" />
+    </div>
+
+    <div class="button-row">
+      <button class="btn-primary" id="generateBtn" type="button">Generate Descriptions</button>
+      <button class="btn-secondary" id="resetBtn" type="button">Reset</button>
+    </div>
+  </section>
+
+  <section class="card results-card">
+    <h2>Generated Descriptions</h2>
+    <div id="results" class="results-list">
+      <p class="empty-state">Your generated Google Ads descriptions will appear here.</p>
+    </div>
+  </section>
+
+  <section class="card content-card">
+    <h2>What This Tool Does</h2>
+    <p>
+      This Google Ads Description Generator helps you create responsive search ad description
+      ideas using your keyword, offer, benefits, and optional call to action. It is designed
+      for PPC marketers who want faster copy drafting for campaign launches.
+    </p>
+
+    <h2>Why It Matters</h2>
+    <p>
+      Strong descriptions can improve ad relevance, clarify your value proposition, and
+      encourage more clicks. This tool helps you brainstorm usable description ideas while
+      keeping Google Ads copy structure in mind.
+    </p>
+
+    <h2>How to Use It</h2>
+    <ol>
+      <li>Enter your main keyword.</li>
+      <li>Add your offer or promotion.</li>
+      <li>Describe the main customer benefit.</li>
+      <li>Optionally include a call to action.</li>
+      <li>Click Generate Descriptions to see variations.</li>
+    </ol>
+
+    <h2>Related Tools</h2>
+    <p>
+      Pair this with our
+      <a href="/google-ads-headline-generator">Google Ads Headline Generator</a>,
+      validate copy using the
+      <a href="/google-ads-character-counter">Google Ads Character Counter</a>,
+      preview layouts with the
+      <a href="/google-ads-preview-tool">Google Ads Preview Tool</a>,
+      or create campaign links with the
+      <a href="/utm-builder">UTM Builder</a>.
+    </p>
+  </section>
+
+  <script>
+    const keywordEl = document.getElementById("keyword");
+    const offerEl = document.getElementById("offer");
+    const benefitEl = document.getElementById("benefit");
+    const ctaEl = document.getElementById("cta");
+
+    const generateBtn = document.getElementById("generateBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const resultsEl = document.getElementById("results");
+
+    function trimText(text) {
+      return text.trim();
+    }
+
+    function cutToLimit(text, limit = 90) {
+      return text.length > limit ? text.slice(0, limit) : text;
+    }
+
+    function generateDescriptions() {
+      const keyword = trimText(keywordEl.value);
+      const offer = trimText(offerEl.value);
+      const benefit = trimText(benefitEl.value);
+      const cta = trimText(ctaEl.value);
+
+      if (!keyword || !offer || !benefit) {
+        resultsEl.innerHTML = '<p class="empty-state">Please enter a main keyword, offer, and benefit.</p>';
+        return;
+      }
+
+      const rawDescriptions = [
+        `${keyword} available now. ${offer}. ${benefit}. ${cta}`.trim(),
+        `${offer} on ${keyword}. ${benefit}. ${cta}`.trim(),
+        `Choose ${keyword} with ${benefit}. ${offer}. ${cta}`.trim(),
+        `${keyword} for smarter results. ${offer}. ${benefit}. ${cta}`.trim(),
+        `${benefit}. ${offer} on ${keyword}. ${cta}`.trim(),
+        `${keyword} made simple. ${benefit}. ${offer}. ${cta}`.trim(),
+        `${offer} and enjoy ${benefit} with ${keyword}. ${cta}`.trim(),
+        `Discover ${keyword} today. ${benefit}. ${offer}. ${cta}`.trim()
+      ];
+
+      const cleaned = rawDescriptions
+        .map((text) => text.replace(/\s+/g, " ").replace(/\s+\./g, ".").trim())
+        .filter(Boolean);
+
+      const uniqueDescriptions = [...new Set(cleaned)].map((item) => cutToLimit(item, 90));
+
+      resultsEl.innerHTML = uniqueDescriptions.map((description) => {
+        const count = description.length;
+        const statusClass = count <= 90 ? "ok" : "danger";
+        const statusText = count <= 90 ? "Fits" : "Too Long";
+
+        return `
+          <div class="result-item">
+            <div class="result-top">
+              <strong>${description}</strong>
+              <span class="status ${statusClass}">${statusText}</span>
+            </div>
+            <div class="result-meta">${count} / 90 characters</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function resetForm() {
+      keywordEl.value = "";
+      offerEl.value = "";
+      benefitEl.value = "";
+      ctaEl.value = "";
+      resultsEl.innerHTML = '<p class="empty-state">Your generated Google Ads descriptions will appear here.</p>';
+    }
+
+    generateBtn.addEventListener("click", generateDescriptions);
+    resetBtn.addEventListener("click", resetForm);
+  </script>
+
+  <style>
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .tool-card,
+    .results-card,
+    .content-card {
+      margin-top: 24px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    input:focus {
+      outline: 2px solid rgba(109, 40, 217, 0.15);
+      border-color: var(--primary);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #ede9fe;
+      color: #4c1d95;
+    }
+
+    .results-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .result-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+
+    .result-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .result-meta {
+      margin-top: 8px;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .empty-state {
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .status.ok {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    .status.danger {
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .content-card h2 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .content-card h2:first-child {
+      margin-top: 0;
+    }
+
+    .content-card p,
+    .content-card li {
+      color: #374151;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+  </style>
+</MainLayout>
