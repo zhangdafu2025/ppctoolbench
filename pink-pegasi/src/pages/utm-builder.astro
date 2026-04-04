@@ -94,6 +94,63 @@ currentPath="/utm-builder"
   </section>
 
   <section class="info-block">
+  <h2>How to use this UTM Builder</h2>
+
+  <ol>
+    <li>Enter your website URL (the landing page you want to track).</li>
+    <li>Select your campaign type (Google Ads, Email, Affiliate, or Social).</li>
+    <li>Add a campaign name using lowercase and hyphens.</li>
+    <li>Adjust source and medium if needed.</li>
+    <li>Click "Generate URL" to create your tracking link.</li>
+  </ol>
+
+  <p>
+    Once generated, you can copy the URL and use it in your ads,
+    emails, or affiliate campaigns to track performance in GA4.
+  </p>
+</section>
+
+<section class="info-block">
+  <h2>What are UTM parameters?</h2>
+
+  <p>
+    UTM parameters are tags added to URLs that help analytics tools like Google Analytics
+    understand where your traffic is coming from and how your campaigns perform.
+  </p>
+
+  <ul>
+    <li><strong>utm_source</strong> – where the traffic comes from (e.g. google)</li>
+    <li><strong>utm_medium</strong> – the channel (e.g. cpc, email)</li>
+    <li><strong>utm_campaign</strong> – the campaign name</li>
+    <li><strong>utm_term</strong> – keyword tracking (optional)</li>
+    <li><strong>utm_content</strong> – ad variation (optional)</li>
+  </ul>
+
+  <p>
+    Using consistent UTM naming helps you avoid messy reports and improves
+    your ability to analyze campaign performance.
+  </p>
+</section>
+
+<section class="info-block">
+  <h2>Example UTM URL</h2>
+
+  <div class="card">
+    <p><strong>Base URL:</strong> https://example.com/product</p>
+
+    <p><strong>Generated URL:</strong></p>
+    <p>
+      https://example.com/product?utm_source=google&utm_medium=cpc&utm_campaign=spring-sale
+    </p>
+
+    <p>
+      This allows you to track exactly which campaign and traffic source
+      generated the visit inside your analytics dashboard.
+    </p>
+  </div>
+</section>
+
+  <section class="info-block">
     <h2>Why this tool is useful</h2>
     <ul>
       <li>Prevent inconsistent naming across campaigns and channels.</li>
@@ -104,32 +161,33 @@ currentPath="/utm-builder"
   </section>
 
   <section class="info-block">
-    <h2>Common questions</h2>
+  <h2>Common questions</h2>
 
-    <details>
-      <summary>What are UTMs used for?</summary>
-      <p>
-        UTM parameters help analytics tools like GA4 understand where your traffic
-        came from and which campaigns performed best.
-      </p>
-    </details>
+  <details>
+    <summary>What are UTMs used for?</summary>
+    <p>UTM parameters help analytics tools like GA4 understand where your traffic came from.</p>
+  </details>
 
-    <details>
-      <summary>What should I use for Google Ads source and medium?</summary>
-      <p>
-        A common convention is <code>utm_source=google</code> and
-        <code>utm_medium=cpc</code>.
-      </p>
-    </details>
+  <details>
+    <summary>Do UTMs affect SEO?</summary>
+    <p>No. UTM parameters do not impact search rankings when used correctly.</p>
+  </details>
 
-    <details>
-      <summary>Should I use lowercase naming?</summary>
-      <p>
-        Yes. Lowercase naming helps avoid duplicate reporting rows caused by
-        inconsistent capitalization.
-      </p>
-    </details>
-  </section>
+  <details>
+    <summary>Should I always use UTMs in Google Ads?</summary>
+    <p>Yes, especially if you want consistent tracking in analytics tools.</p>
+  </details>
+
+  <details>
+    <summary>What is the best naming convention?</summary>
+    <p>Use lowercase, hyphens, and consistent naming across campaigns.</p>
+  </details>
+
+  <details>
+    <summary>Can I use UTMs for email campaigns?</summary>
+    <p>Yes, UTMs are commonly used for email tracking and marketing campaigns.</p>
+  </details>
+</section>
 
 <section class="info-block">
   <h2>Related Tools</h2>
